@@ -1,0 +1,22 @@
+{
+  "repository": "ofer2300/pyRevit",
+  "head": "626d4e0348f5e1aa6d2be4d91876ba74cbf39c1f",
+  "default_files": 3777,
+  "submodules": 8,
+  "git_counts": {
+    "refs": 1646,
+    "blobs": 45420,
+    "commits": 11613,
+    "blob_bytes": 13578428097
+  },
+  "content_kinds": {
+    "text": 28016,
+    "binary": 17402,
+    "not_decoded_size_limit": 2
+  },
+  "findings": 10,
+  "audit_coverage": "PARTIAL",
+  "delivery": "LOCAL_ONLY",
+  "semantic_scope": "core architecture and selected risk paths, not every historical file",
+  "generated_at": "2026-09-22T02:41:34.784489+00:00"
+}

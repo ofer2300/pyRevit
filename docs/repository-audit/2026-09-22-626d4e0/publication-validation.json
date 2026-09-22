@@ -1,0 +1,27 @@
+{
+  "checks": [
+    {
+      "file": "README.md",
+      "local_links_ok": true,
+      "rtl": true,
+      "github_markdown_rendered": true
+    },
+    {
+      "file": "REPOSITORY_AUDIT.he.md",
+      "local_links_ok": true,
+      "rtl": true,
+      "github_rendered_tables": 7,
+      "github_markdown_rendered": true
+    },
+    {
+      "file": "docs\\repository-audit\\2026-09-22-626d4e0\\README.he.md",
+      "local_links_ok": true,
+      "rtl": true,
+      "github_markdown_rendered": true
+    }
+  ],
+  "archive_crc_ok": true,
+  "original_readme_preserved": true,
+  "source_runtime_executed": false,
+  "private_receipt_removed": true
+}

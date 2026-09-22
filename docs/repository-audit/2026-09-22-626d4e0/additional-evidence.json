@@ -1,0 +1,36 @@
+{
+  "labels": {
+    "state": "read",
+    "count": 10
+  },
+  "milestones": {
+    "state": "read",
+    "count": 0
+  },
+  "wiki": {
+    "state": "unavailable_or_absent",
+    "evidence": "git ls-remote returned Repository not found; has_wiki=true"
+  },
+  "projects": {
+    "state": "unavailable",
+    "reason": "read:project scope missing"
+  },
+  "packages": {
+    "state": "partial",
+    "reason": "NuGet listing blocked by missing read:packages; UI showed no packages, other package types not independently enumerated"
+  },
+  "service_refs": {
+    "total": 1457,
+    "pull": 1455,
+    "chunked_upload": 2,
+    "note": "Git refs read; not equivalent to PR API metadata"
+  },
+  "secret_pattern_review": [
+    {
+      "object": "47a47042b603d660e6640ab4adf689967f09ddb4",
+      "pattern": "private-key",
+      "example_path": "misclib/cherrypy/test/test.pem"
+    }
+  ],
+  "publication_note": "Private orchestration receipt omitted; audit findings and public repository evidence preserved."
+}

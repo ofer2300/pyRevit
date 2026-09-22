@@ -1,0 +1,144 @@
+[
+  {
+    "id": "F01",
+    "severity": "גבוהה",
+    "title": "ברירת המחדל מציגה קו עבודה ישן",
+    "fact": "ענף ברירת המחדל הוא copilot/explore-codebase-ofna-fix, בגרסה 626d4e0 מ־21.07.2026. develop מכיל את כל ההיסטוריה שלו ועוד 511 commits, ובין העצים שונים 1,073 קבצים. master מכיל עוד 166 commits ביחס לברירת המחדל. קובצי release/version מציגים בהתאמה 6.5.4, 7.0.0.26237 ו־6.5.5.26237.",
+    "impact": "מי שנכנס למאגר או משכפל בלי בחירת ענף עשוי לעבוד על קוד ישן ולהחמיץ תיקונים. develop אינו בהכרח גרסה יציבה רק משום שהוא חדש יותר.",
+    "recommendation": "להחליט מהו קו השימוש האישי: גרסת הפצה מזוהה או קו פיתוח. רק לאחר בדיקות Revit מתאימות לשקול שינוי ברירת מחדל. לא בוצע שינוי כזה בביקורת.",
+    "confidence": "גבוהה; השוואת היסטוריה ותוכן ב־Git",
+    "paths": [
+      "release/version"
+    ],
+    "evidence": "branches.csv; branch-details.json; repository-surfaces.json"
+  },
+  {
+    "id": "F02",
+    "severity": "גבוהה",
+    "title": "אסימון גישה להרחבה נשמר בהגדרות ללא הצפנה",
+    "fact": "בחלון Extensions נשמר הערך token אל config.token, ובנתיב התקנה גם אל config.password. לאחר מכן נקראת save_changes. מנגנון configparser.save כותב את ההגדרות כטקסט UTF-8. דפוס השמירה קיים גם ב־develop. בענף claude/secure-github-token-storage-WpVP3 נמצא מימוש DPAPI — הצפנה הקשורה לחשבון Windows — שאינו קיים בנתיב המקביל ב־develop.",
+    "impact": "כאשר משתמש מזין אסימון, מי שמקבל את קובץ ההגדרות או גיבוי שלו עלול לקבל גם את האסימון. לא נבדקו הגדרות מקומיות שלך ולא הוכח שאסימון שלך נשמר או נחשף.",
+    "recommendation": "לתכנן אחסון מאובטח והעברה מבוקרת של ערכים ישנים, כולל גיבוי והתנהגות במעבר משתמש. הענף הקיים הוא מועמד לבדיקה, לא תיקון שאושר לשילוב אוטומטי.",
+    "confidence": "גבוהה במסלול הכתיבה הסטטי; שימוש בפועל לא נבדק",
+    "paths": [
+      "extensions/pyRevitCore.extension/pyRevit.tab/pyRevit.panel/Extensions.smartbutton/script.py",
+      "pyrevitlib/pyrevit/coreutils/configparser.py"
+    ],
+    "evidence": "כתיבת token בשורות 604–617 ו־713–719; configparser.py בשורות 260–265"
+  },
+  {
+    "id": "F03",
+    "severity": "גבוהה",
+    "title": "עדכון Clone עלול לדרוס שינויים מקומיים",
+    "fact": "GitInstaller.ForcedUpdate מבצע CheckoutModifiers.Force לפני Commands.Pull. PyRevitClones.Update קורא לו בעותק Git. במסלול שאינו Git, ReDeployClone קורא ל־Delete לפני DeployFromImage. Clone הוא עותק מקומי של התקנה או מאגר.",
+    "impact": "התאמות שנעשו בתוך עותק ההתקנה עלולות להימחק בזמן עדכון. במסלול התקנה מחדש, כשל לאחר המחיקה עלול להשאיר את ההתקנה חסרה. לא הורצה אף פקודת עדכון.",
+    "recommendation": "לשמור הרחבות והתאמות במאגר נפרד; לפני שינוי התנהגות העדכון לבדוק גילוי שינויים מקומיים, גיבוי ושחזור. אין להשתמש בפקודת עדכון זו כתחליף לתהליך Git מבוקר.",
+    "confidence": "גבוהה במסלול הקוד; תרחיש כשל לא הופעל",
+    "paths": [
+      "dev/pyRevitLabs/pyRevitLabs.Common/GitInstaller.cs",
+      "dev/pyRevitLabs/pyRevitLabs.PyRevit/PyRevitClones.cs"
+    ],
+    "evidence": "ForcedUpdate בשורות 135–156; ReDeployClone בשורות 622 ואילך"
+  },
+  {
+    "id": "F04",
+    "severity": "גבוהה מותנית",
+    "title": "הפעלת שרת Routes דורשת הגבלת חשיפה",
+    "fact": "Routes הוא ממשק HTTP שמאפשר לתוכנה אחרת לקרוא לפעולות רשומות בתוך Revit. ברירת המחדל היא disabled. כתובת ההאזנה המוגדרת כברירת מחדל היא מחרוזת ריקה, ו־RoutesServer מוסר אותה ל־HTTPServer; הקוד מציג מצב זה כ־0.0.0.0, כלומר כלל ממשקי הרשת. במסלול הבקשה הכללי שנבדק לא נמצאה בדיקת זהות מרכזית לפני הפעלת הפעולה.",
+    "impact": "אם מפעילים את השירות עם הגדרות הכתובת הריקות ובלי הגנה חיצונית, היקף הגישה עשוי להיות רחב מהמחשב המקומי. החשיפה בפועל תלויה בחומת האש, בהגדרות ובפעולות שנרשמו; היא לא נבדקה.",
+    "recommendation": "לפני שימוש להגדיר כתובת מקומית מפורשת ולבחון אימות זהות, הרשאות וזמן המתנה מרבי. אין ראיה ששירות כזה פועל במחשב שלך.",
+    "confidence": "גבוהה לגבי ברירות המחדל והנתיב; חשיפה חיה לא נבדקה",
+    "paths": [
+      "dev/pyRevitLabs/pyRevitLabs.PyRevit/PyRevitConsts.cs",
+      "pyrevitlib/pyrevit/routes/server/server.py",
+      "pyrevitlib/pyrevit/userconfig.py"
+    ],
+    "evidence": "ConfigsRoutesServerDefault=false; ConfigsRoutesHostDefault=\"\"; _handle_route ו־RoutesServer.__init__"
+  },
+  {
+    "id": "F05",
+    "severity": "בינונית–גבוהה",
+    "title": "שינוי נוסף בבקשת שינוי אינו מפעיל CI מחדש",
+    "fact": "CI — סדרת בנייה ובדיקות אוטומטית — מוגדרת ב־ci.yml עבור pull_request מסוג opened ו־reopened בלבד. האירוע synchronize, שמשמש להוספת commits ל־PR פתוח, אינו ברשימה. גם ב־develop התנאי הזה נשאר. push מוגבל ל־develop, master ותגים v*. PR הוא בקשה לשלב שינוי בענף אחר.",
+    "impact": "אם יופעל התהליך בעתיד, ריצה על פתיחת PR לא תעיד על תקינות השינויים המאוחרים בו. במאגר שלך אין ריצות שמאפשרות לבדוק אם הפער כבר גרם לאירוע.",
+    "recommendation": "לפני הסתמכות על CI, להוסיף בדיקה על עדכון PR ולוודא שתוצאת הבדיקה קשורה ל־SHA האחרון — מזהה הגרסה המדויקת.",
+    "confidence": "גבוהה; נקרא תנאי ההפעלה בשני הענפים",
+    "paths": [
+      ".github/workflows/ci.yml",
+      "docs/ci-cd.md"
+    ],
+    "evidence": "ci.yml שורות 3–6"
+  },
+  {
+    "id": "F06",
+    "severity": "בינונית–גבוהה",
+    "title": "היסטוריית קוד עשירה ללא ראיות הפעלה במאגר האישי",
+    "fact": "GitHub החזיר 0 PR, 0 Issues, 0 Releases, 0 workflows רשומים ו־0 ריצות. בעץ ברירת המחדל קיימים שבעה קובצי workflows ו־156 תגי גרסה. Actions מוגדר enabled=true. שלבי פרסום וחתימה רבים מוגבלים במפורש ל־pyrevitlabs/pyRevit.",
+    "impact": "המאגר הוא מקור קוד נרחב, אך אינו מוכיח שהתקנה נבנתה או נבדקה תחת ofer2300. מסמכים ותגובות commits שמפנים ל־PR במיזם המקורי אינם ביקורות שאפשר לקרוא דרך ה־PR API של המאגר האישי.",
+    "recommendation": "להפריד בין קוד מיובא לבין סביבת הפצה מתפקדת; אם מתוכננת הפצה אישית, לתכנן בנייה ובדיקות עצמאיות ורק אחר כך הרשאות וחתימה.",
+    "confidence": "גבוהה בתוצאות API בזמן הבדיקה; סיבת היעדר רישום workflows לא הוכחה",
+    "paths": [
+      ".github/workflows/ci.yml",
+      ".github/workflows/release.yml",
+      ".github/workflows/wip.yml"
+    ],
+    "evidence": "repository-surfaces.json"
+  },
+  {
+    "id": "F07",
+    "severity": "בינונית",
+    "title": "לא נמצאה הגנת ענפים מדווחת",
+    "fact": "כל 33 הענפים הוחזרו עם protected=false. רשימת rulesets — כללי הגנה החלים על המאגר — נקראה ונמצאה ריקה. קריאות הגנת ענף פרטניות החזירו 404; אינן הבסיס היחיד לממצא.",
+    "impact": "אין ראיה לדרישה מובנית של ביקורת או בדיקה לפני שינוי ענפי העבודה. הדבר מגדיל את ההסתמכות על זהירות ידנית.",
+    "recommendation": "אם המאגר ישמש בסיס עבודה שוטף, לקבוע תחילה ענף מרכזי, בדיקות רלוונטיות ודרך שחזור, ואז לשקול הגנה מתאימה. לא שונו הרשאות או הגנות.",
+    "confidence": "גבוהה לגבי השדות שנחשפו; מדיניות שאינה נחשפת אינה מכוסה",
+    "paths": [],
+    "evidence": "repository-surfaces.json: branches, rulesets"
+  },
+  {
+    "id": "F08",
+    "severity": "בינונית",
+    "title": "מקור מלא אינו מבטיח חבילת התקנה עצמאית",
+    "fact": "בעץ ברירת המחדל אין תיקיית bin. pyRevitfile מגדיר מנועי IronPython 2.7.12, IronPython 3.4.2 ו־CPython 3.12.3. שמונה הפניות submodule מצביעות למאגרים אחרים; submodule הוא קישור לגרסה מדויקת של מאגר נוסף. קובצי DLL שמורים גם ב־dev/libs. התיעוד מתאר הורדת bin ממוצרי בנייה ב־GitHub וחלופות מהמיזם המקורי.",
+    "impact": "שכפול המאגר האישי אינו לבדו התקנה שניתן להפעיל. זמינות רכיבים חיצוניים והתאמה בין מקור ל־DLL משפיעות על שחזור ההתקנה.",
+    "recommendation": "להגדיר חבילת התקנה שניתן לזהות ולשחזר, עם גרסאות ותכולה מוסכמות. לא להציג חתימת קובץ או שם tag כהוכחת התאמה למקור.",
+    "confidence": "גבוהה במלאי ובתיעוד; לא בוצעה בנייה או השוואת DLL למקור",
+    "paths": [
+      ".gitmodules",
+      "pyRevitfile",
+      "docs/ci-cd.md",
+      "build/README.md"
+    ],
+    "evidence": "submodules.csv; default-files.csv"
+  },
+  {
+    "id": "F09",
+    "severity": "בינונית",
+    "title": "הבדיקות שנמצאו אינן הוכחת עבודה בתוך Revit",
+    "fact": "ci.yml מפעיל dotnet test על build/tests/Build.Tests.csproj. שם נמצאו בדיקות לעזרי גרסאות, מטא־נתונים, הודעות, נעילת קבצים וסיכומי חתימה. לדוגמה SigningHelperTests בודק ספירת סיומות קבצים ולא מאמת חתימה דיגיטלית. בדיקות וכלי דוגמה נוספים קיימים ב־pyRevitDevTools, וב־develop נוספו גם tests/test_runtime_logger.py.",
+    "impact": "גם הצלחה בבדיקות הבנייה לא תוכיח שכלי עריכת מודל, Keynotes, Dynamo או מנועי Python עובדים בכל גרסת Revit.",
+    "recommendation": "להגדיר מטריצת בדיקה קטנה של גרסאות Revit, מנועים ופקודות הנדסיות נדרשות; להפעיל על מודלי ניסוי עם השוואת תוצאה לפני/אחרי. זו המלצה להמשך, לא בדיקה שבוצעה.",
+    "confidence": "גבוהה לגבי תכולת קבצי הבדיקה; אין תוצאות הרצה",
+    "paths": [
+      ".github/workflows/ci.yml",
+      "build/tests/Build.Tests.csproj",
+      "build/tests/SigningHelperTests.cs"
+    ],
+    "evidence": "קריאת קובצי הבדיקה ותנאי CI"
+  },
+  {
+    "id": "F10",
+    "severity": "נמוכה–בינונית",
+    "title": "תיעוד הארכיטקטורה אינו מסונכרן בכל פרט",
+    "fact": "docs/architecture.md מזכיר IronPython 3.4.0 ונתיב dev/extensions/extensions.json. pyRevitfile מציג IPY342, והקטלוג נמצא ב־extensions/extensions.json. הוראות הסוכנים מתארות תיקיות bin ו־static שאינן קיימות בעץ ברירת המחדל שנבדק.",
+    "impact": "מפתח או סוכן עלולים לאתר רכיב במקום לא נכון או להניח גרסת מנוע שונה. אלה פערי תיעוד, לא הוכחה לכשל הפעלה.",
+    "recommendation": "לעדכן את דף הארכיטקטורה והוראות הסוכנים מתוך הגרסה שנבחרה כבסיס עבודה.",
+    "confidence": "גבוהה; הצלבה בין מסמכים לעץ",
+    "paths": [
+      "docs/architecture.md",
+      ".github/copilot-instructions.md",
+      "pyRevitfile"
+    ],
+    "evidence": "עץ הקבצים וערכי מנועים בנקודת הייחוס"
+  }
+]

@@ -1,0 +1,39 @@
+{
+  "audit.html": {
+    "links": 88,
+    "missing_local_links": [],
+    "rtl": true,
+    "hebrew_characters": 12274
+  },
+  "inventory.html": {
+    "links": 3779,
+    "missing_local_links": [],
+    "rtl": true,
+    "hebrew_characters": 275139
+  },
+  "default-files.csv": {
+    "rows": 3777
+  },
+  "branches.csv": {
+    "rows": 33
+  },
+  "tags.csv": {
+    "rows": 156
+  },
+  "commits.csv": {
+    "rows": 11613
+  },
+  "historical-contents.csv.gz": {
+    "rows": 45420
+  },
+  "ref_integrity": {
+    "same_start_end": true
+  },
+  "git_fsck": {
+    "exit_code_observed": 0,
+    "output_empty": true
+  },
+  "coverage": "PARTIAL",
+  "tested_repository_runtime": false,
+  "verified_at": "2026-09-22T02:42:58.354964+00:00"
+}
