@@ -1,0 +1,186 @@
+[
+  {
+    "file": "additional-evidence.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "all-ref-files.csv.gz",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "audit-summary.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "audit.html",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "binary-inspection.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "branch-details.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "branches.csv",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "commits.csv",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "default-files.csv",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "dependencies-static.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "findings.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "git-fsck.txt",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "historical-contents.csv.gz",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "inventory.html",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "remote-refs-end.txt",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "remote-refs-final.txt",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "remote-refs.txt",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "repository-surfaces.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "service-refs.txt",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "snapshot.json.gz",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "submodules.csv",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "tags.csv",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  },
+  {
+    "file": "verification.json",
+    "matches": {
+      "local-user-path": 0,
+      "github-token": 0,
+      "private-key-body": 0
+    }
+  }
+]

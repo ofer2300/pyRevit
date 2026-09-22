@@ -1,0 +1,14 @@
+{
+  "pyRevit-audit.zip": {
+    "sha256": "8e37d823e9166724c4a5081688cb07bd6836afa84750429cea31eda4be6dcfb9",
+    "bytes": 385605088
+  },
+  "snapshot.json.gz": {
+    "sha256": "9f6f14e720503078c8995cc0985a23c0ed3c09953d80a04c7608ae10e69a1eb8",
+    "bytes": 192754259
+  },
+  "all-ref-files.csv.gz": {
+    "sha256": "40d9c328431936b3e1ed3b0f9abb051eb33e4decebec13edf8cf175927ac2f43",
+    "bytes": 186521119
+  }
+}
